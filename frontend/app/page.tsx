@@ -1,35 +1,45 @@
 "use client";
 
-import { useEffect, useState } from 'react';
-import { getAssignments } from '../services/api';
-import { AssignmentWithRemainingDays } from '../types';
+import { useEffect, useState, useCallback } from 'react';
+import { getAssignments, getPatients, getMedications } from '../services/api';
+import { AssignmentWithRemainingDays, Patient, Medication } from '../types';
 import CreatePatientForm from '../components/CreatePatientForm';
 import CreateMedicationForm from '../components/CreateMedicationForm';
 import CreateAssignmentForm from '../components/CreateAssignmentForm';
 
 export default function Home() {
   const [assignments, setAssignments] = useState<AssignmentWithRemainingDays[]>([]);
+  const [patients, setPatients] = useState<Patient[]>([]);
+  const [medications, setMedications] = useState<Medication[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchAssignmentsData = async () => {
-      try {
-        const data = await getAssignments();
-        setAssignments(data);
-      } catch (err) {
-        setError('Failed to fetch assignments.');
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchAssignmentsData();
+  const fetchData = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const [assignmentsData, patientsData, medicationsData] = await Promise.all([
+        getAssignments(),
+        getPatients(),
+        getMedications(),
+      ]);
+      setAssignments(assignmentsData);
+      setPatients(patientsData);
+      setMedications(medicationsData);
+    } catch (err) {
+      setError('Failed to fetch data.');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
   if (loading) {
-    return <div className="p-8 font-sans">Loading assignments...</div>;
+    return <div className="p-8 font-sans">Loading data...</div>;
   }
 
   if (error) {
@@ -41,34 +51,19 @@ export default function Home() {
       <h1 className="text-4xl font-extrabold text-gray-900 mb-8 text-center">Patient Management System</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-        <CreatePatientForm />
-        <CreateMedicationForm />
-        <CreateAssignmentForm />
+        <CreatePatientForm onSuccess={fetchData} />
+        <CreateMedicationForm onSuccess={fetchData} />
+        <CreateAssignmentForm patients={patients} medications={medications} onSuccess={fetchData} />
       </div>
 
       <div className="bg-white p-6 rounded-lg shadow-md">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold text-gray-900">Patient Treatment Dashboard</h2>
           <button
-            onClick={() => {
-              setLoading(true);
-              setError(null);
-              const fetchAssignmentsData = async () => {
-                try {
-                  const data = await getAssignments();
-                  setAssignments(data);
-                } catch (err) {
-                  setError('Failed to fetch assignments.');
-                  console.error(err);
-                } finally {
-                  setLoading(false);
-                }
-              };
-              fetchAssignmentsData();
-            }}
+            onClick={fetchData}
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md shadow-sm transition-colors duration-200"
           >
-            Refresh Assignments
+            Refresh Data
           </button>
         </div>
 

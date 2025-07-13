@@ -3,27 +3,29 @@
 import { useState } from 'react';
 import { createPatient } from '../services/api';
 
-export default function CreatePatientForm() {
+interface CreatePatientFormProps {
+  onSuccess: () => void;
+}
+
+export default function CreatePatientForm({ onSuccess }: CreatePatientFormProps) {
   const [name, setName] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
-  const [message, setMessage] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setMessage(null);
     try {
-      const newPatient = await createPatient({ name, dateOfBirth });
-      setMessage(`Patient ${newPatient.name} created with ID: ${newPatient.id}`);
+      await createPatient({ name, dateOfBirth });
       setName('');
       setDateOfBirth('');
+      onSuccess();
     } catch (error) {
-      setMessage('Failed to create patient.');
-      console.error(error);
+      console.error('Failed to create patient:', error);
+      alert('Failed to create patient.'); // Simple error handling for now
     }
   };
 
   return (
-    <div className="p-4 border rounded-lg shadow-sm bg-white mb-6">
+    <div className="p-4 border rounded-lg shadow-sm bg-white">
       <h2 className="text-xl font-bold text-gray-900 mb-4">Create New Patient</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -55,7 +57,6 @@ export default function CreatePatientForm() {
           Create Patient
         </button>
       </form>
-      {message && <p className="mt-4 text-sm text-gray-600">{message}</p>}
     </div>
   );
 }
