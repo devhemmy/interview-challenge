@@ -26,7 +26,7 @@ export default function CreateMedicationForm() {
 
   return (
     <div className="p-4 border rounded-lg shadow-sm bg-white mb-6">
-      <h2 className="text-xl font-bold mb-4">Create New Medication</h2>
+      <h2 className="text-xl font-bold text-gray-900 mb-4">Create New Medication</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="medicationName" className="block text-sm font-medium text-gray-700">Name</label>
@@ -35,7 +35,7 @@ export default function CreateMedicationForm() {
             id="medicationName"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 placeholder-gray-500"
             required
           />
         </div>
@@ -46,7 +46,7 @@ export default function CreateMedicationForm() {
             id="dosage"
             value={dosage}
             onChange={(e) => setDosage(e.target.value)}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 placeholder-gray-500"
             required
           />
         </div>
@@ -57,7 +57,7 @@ export default function CreateMedicationForm() {
             id="frequency"
             value={frequency}
             onChange={(e) => setFrequency(e.target.value)}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 placeholder-gray-500"
             required
           />
         </div>

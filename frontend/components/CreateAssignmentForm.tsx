@@ -69,7 +69,7 @@ export default function CreateAssignmentForm() {
 
   return (
     <div className="p-4 border rounded-lg shadow-sm bg-white mb-6">
-      <h2 className="text-xl font-bold mb-4">Create New Assignment</h2>
+      <h2 className="text-xl font-bold text-gray-900 mb-4">Create New Assignment</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="patientSelect" className="block text-sm font-medium text-gray-700">Patient</label>
@@ -77,7 +77,7 @@ export default function CreateAssignmentForm() {
             id="patientSelect"
             value={selectedPatientId}
             onChange={(e) => setSelectedPatientId(Number(e.target.value))}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 placeholder-gray-500"
             required
           >
             <option value="">Select a patient</option>
@@ -94,7 +94,7 @@ export default function CreateAssignmentForm() {
             id="medicationSelect"
             value={selectedMedicationId}
             onChange={(e) => setSelectedMedicationId(Number(e.target.value))}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 placeholder-gray-500"
             required
           >
             <option value="">Select a medication</option>
@@ -112,7 +112,7 @@ export default function CreateAssignmentForm() {
             id="startDate"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 placeholder-gray-500"
             required
           />
         </div>
@@ -123,7 +123,7 @@ export default function CreateAssignmentForm() {
             id="numberOfDays"
             value={numberOfDays}
             onChange={(e) => setNumberOfDays(Number(e.target.value))}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 placeholder-gray-500"
             required
           />
         </div>
